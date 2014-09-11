@@ -31,9 +31,6 @@ int read_config (const char *input_file, const char *output_file)
   config_setting_t *physics = add_group (root, "physics");
 
   // Boxsize
-  /* double boxsize[] = {1.0, 1.0, 1.0}; */
-  /* read_float_array (physics, "boxsize", &boxsize, 3); */
-  /* printf ("boxsize = [%f,%f,%f]\n", boxsize[0], boxsize[1], boxsize[2]); */
   double Lx = 1.0, Ly = 1.0, Lz = 1.0;
   read_float_list (physics, "boxsize", 3, &Lx, &Ly, &Lz);
   printf ("Lx = %f, Ly = %f, Lz = %f\n", Lx, Ly, Lz);
@@ -159,7 +156,7 @@ void read_int_list (config_setting_t *parent, const char *name,
     return;
   }
 
-  setting = config_setting_add (parent, name, CONFIG_TYPE_ARRAY);
+  setting = config_setting_add (parent, name, CONFIG_TYPE_LIST);
   for (index = 0; index < count; index++) {
     long value = (long) *va_arg (args, int*);
     config_setting_set_int_elem (setting, -1, value);
@@ -185,7 +182,7 @@ void read_float_list (config_setting_t *parent, const char *name,
     return;
   }
 
-  setting = config_setting_add (parent, name, CONFIG_TYPE_ARRAY);
+  setting = config_setting_add (parent, name, CONFIG_TYPE_LIST);
   for (unsigned int index = 0; index < count; index++) {
     double value = *va_arg (args, double*);
     config_setting_set_float_elem (setting, -1, value);
