@@ -11,3 +11,9 @@ deps := $(objects:.o=.d)
 
 clean:
 	rm -f main *.o libconfig/*.o
+
+py_libconfig:
+	(cd python && make)
+
+py_clean:
+	(cd python && make clean)
