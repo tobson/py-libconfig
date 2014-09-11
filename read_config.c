@@ -22,6 +22,10 @@ int read_config (const char *input_file, const char *output_file)
   // Settings root
   config_setting_t *root = config_root_setting(&cfg);
 
+  // Description of configuration file
+  const char *desc = "Snoopy configuration file.";
+  read_string (root, "name", &desc);
+
   // Create physics group
   config_setting_t *physics = add_group (root, "physics");
 
@@ -47,6 +51,10 @@ int read_config (const char *input_file, const char *output_file)
   long resolution[] = {32, 32, 32};
   read_int_array (code, "resolution", &resolution, 3);
   printf ("resolution = [%ld,%ld,%ld]\n", resolution[0], resolution[1], resolution[2]);
+
+  int dealias = 0;
+  read_bool (code, "dealias", &dealias);
+  printf ("dealias = %d\n", dealias);
 
   /* Write out the updated configuration. */
   if (!config_write_file (&cfg, output_file))
@@ -141,4 +149,30 @@ void read_int_array (config_setting_t *parent, const char *name, long (*array)[]
   for (index = 0; index < length; index++) {
     config_setting_set_int_elem (setting, -1, (*array)[index]);
   }
+}
+
+void read_bool (config_setting_t *parent, const char *name, int *value)
+{
+  config_setting_t *setting = config_setting_get_member (parent, name);
+
+  if (setting) {
+    *value = config_setting_get_bool (setting);
+    return;
+  }
+
+  setting = config_setting_add (parent, name, CONFIG_TYPE_BOOL);
+  config_setting_set_bool (setting, *value);
+}
+
+void read_string (config_setting_t *parent, const char *name, const char **value)
+{
+  config_setting_t *setting = config_setting_get_member (parent, name);
+
+  if (setting) {
+    *value = config_setting_get_string (setting);
+    return;
+  }
+
+  setting = config_setting_add (parent, name, CONFIG_TYPE_STRING);
+  config_setting_set_string (setting, *value);
 }
