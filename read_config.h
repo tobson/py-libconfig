@@ -1,7 +1,7 @@
 #ifndef READ_CONFIG_H
 #define READ_CONFIG_H
 
-#include <libconfig.h>
+#include "libconfig/libconfig.h"
 
 config_setting_t *add_group (config_setting_t *, const char *);
 

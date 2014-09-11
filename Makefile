@@ -1,10 +1,13 @@
 CFLAGS += -Wall -std=c99
+CFLAGS += -MMD
 
-LIBCONFIG = $(HOME)/macports
-CFLAGS += -I$(LIBCONFIG)/include
-LDFLAGS += -L$(LIBCONFIG)/lib -lconfig
+objects := $(patsubst %.c, %.o, $(wildcard *.c libconfig/*.c))
 
-main: read_config.o
+main: $(objects)
+
+deps := $(objects:.o=.d)
+
+-include $(deps)
 
 clean:
-	rm -f *.o main
+	rm -f main *.o libconfig/*.o
