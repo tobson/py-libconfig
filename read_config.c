@@ -132,7 +132,7 @@ void read_int_array (config_setting_t *parent, const char *name, long (*array)[]
     assert (config_setting_length (setting) == length);
     for (index = 0; index < length; index++)
     {
-      (*array)[index] = config_setting_get_float_elem (setting, index);
+      (*array)[index] = config_setting_get_int_elem (setting, index);
     }
     return;
   }
