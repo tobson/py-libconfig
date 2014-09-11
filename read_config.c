@@ -114,7 +114,7 @@ void read_int (config_setting_t *parent, const char *name, long *value)
   config_setting_t *setting = config_setting_get_member (parent, name);
 
   if (setting) {
-    *value = config_setting_get_float (setting);
+    *value = config_setting_get_int (setting);
     return;
   }
 
