@@ -44,9 +44,9 @@ int read_config (const char *input_file, const char *output_file)
   config_setting_t *code = add_group (root, "code");
 
   // Resolution
-  int resolution[] = {32, 32, 32};
+  long resolution[] = {32, 32, 32};
   read_int_array (code, "resolution", &resolution, 3);
-  printf ("resolution = [%d,%d,%d]\n", resolution[0], resolution[1], resolution[2]);
+  printf ("resolution = [%ld,%ld,%ld]\n", resolution[0], resolution[1], resolution[2]);
 
   /* Write out the updated configuration. */
   if (!config_write_file (&cfg, output_file))
@@ -109,7 +109,7 @@ void read_float_array (config_setting_t *parent, const char *name, double (*arra
   }
 }
 
-void read_int (config_setting_t *parent, const char *name, int *value)
+void read_int (config_setting_t *parent, const char *name, long *value)
 {
   config_setting_t *setting = config_setting_get_member (parent, name);
 
@@ -122,7 +122,7 @@ void read_int (config_setting_t *parent, const char *name, int *value)
   config_setting_set_int (setting, *value);
 }
 
-void read_int_array (config_setting_t *parent, const char *name, int (*array)[], unsigned int length) {
+void read_int_array (config_setting_t *parent, const char *name, long (*array)[], unsigned int length) {
 
   unsigned int index;
 
