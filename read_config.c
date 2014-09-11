@@ -13,7 +13,7 @@ int read_config (const char *input_file, const char *output_file)
   /* Read the file. If there is an error, report it and exit. */
   if (!config_read_file (&cfg, input_file))
   {
-    fprintf (stderr, "%s:%d - %s\n", config_error_file (&cfg),
+    fprintf (stderr, "%s:%d - %s\n", input_file,
             config_error_line (&cfg), config_error_text (&cfg));
     config_destroy (&cfg);
     return (EXIT_FAILURE);
@@ -31,19 +31,14 @@ int read_config (const char *input_file, const char *output_file)
   printf ("boxsize = [%f,%f,%f]\n", boxsize[0], boxsize[1], boxsize[2]);
 
   // Reynolds number
-  /* double Re = read_float (physics, "reynolds", 1.0); */
   double Re = 1.0;
   read_float (physics, "reynolds", &Re);
   printf ("Re = %f\n", Re);
 
   // Magnetic Reynolds number
-  /* double Rm = read_float (physics, "reynolds_m", 1.0); */
   double Rm = 1.0;
   read_float (physics, "reynolds_m", &Rm);
   printf ("Rm = %f\n", Rm);
-
-  // Create group within group
-  config_setting_t *hydro = add_group (physics, "hydro");
 
   // Create code group
   config_setting_t *code = add_group (root, "code");
