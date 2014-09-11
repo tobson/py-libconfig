@@ -1,5 +1,8 @@
-CFLAGS = -Wall -std=c99 -I$(HOME)/macports/include
-LDFLAGS = -L$(HOME)/macports/lib -lconfig
+CFLAGS += -Wall -std=c99
+
+LIBCONFIG = $(HOME)/macports
+CFLAGS += -I$(LIBCONFIG)/include
+LDFLAGS += -L$(LIBCONFIG)/lib -lconfig
 
 main: read_config.o
 
