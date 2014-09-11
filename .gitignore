@@ -1,0 +1,11 @@
+# Main executable
+/main
+
+# Output config file
+/output.cfg
+
+# Object files
+*.o
+
+# Vim swap files
+*.swp
